@@ -6,9 +6,9 @@ myEmitter.on("birthday", () => {
     console.log(`happy birthday to you`);
 })
 
-myEmitter.on("birthday", () => {
-    console.log(`I will send a gift`);
+myEmitter.on("birthday", (gift) => {
+    console.log(`I will send a gift ${gift}`);
 })
 
-myEmitter.emit("birthday")
+myEmitter.emit("birthday", "watch")
 
