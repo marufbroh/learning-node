@@ -1,6 +1,7 @@
 const http = require("http");
 const fs = require("fs");
 const { buffer } = require("stream/consumers");
+const { error } = require("console");
 
 // creating a server using raw node.js
 const server = http.createServer();
@@ -14,11 +15,19 @@ server.on("request", (req, res) => {
     );
 
     readableStream.on("data", (buffer) => {
+      res.statusCode = 200;
       res.write(buffer);
     });
 
     readableStream.on("end", () => {
-      res.end("Hello from world!");
+      res.statusCode = 200;
+      res.end("The stream is over!");
+    });
+
+    readableStream.on("error", (error) => {
+      console.log(error);
+      res.statusCode = 500;
+      res.end("Something went wrong");
     });
   }
 });
